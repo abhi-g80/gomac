@@ -32,3 +32,39 @@ func TestHandler(t *testing.T) {
 		t.Errorf("handler returned unexpected body: got %v want %v", actual, expected)
 	}
 }
+
+func TestRouterCPUTemperature(t *testing.T) {
+	r := newRouter()
+
+	mockServer := httptest.NewServer(r)
+
+	resp, err := http.Get(mockServer.URL + "/cpu/temperature")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		t.Errorf("expected status code should be ok, got %d", resp.StatusCode)
+	}
+
+	defer resp.Body.Close()
+}
+
+func TestRouterGPUTemperature(t *testing.T) {
+	r := newRouter()
+
+	mockServer := httptest.NewServer(r)
+
+	resp, err := http.Get(mockServer.URL + "/gpu/temperature")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		t.Errorf("expected status code should be ok, got %d", resp.StatusCode)
+	}
+
+	defer resp.Body.Close()
+}
