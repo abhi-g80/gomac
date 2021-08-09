@@ -38,7 +38,7 @@ func TestRouterCPUTemperature(t *testing.T) {
 
 	mockServer := httptest.NewServer(r)
 
-	resp, err := http.Get(mockServer.URL + "/cpu/temperature")
+	resp, err := http.Get(mockServer.URL + "/smc/cpu/temperature")
 
 	if err != nil {
 		t.Fatal(err)
@@ -56,7 +56,7 @@ func TestRouterGPUTemperature(t *testing.T) {
 
 	mockServer := httptest.NewServer(r)
 
-	resp, err := http.Get(mockServer.URL + "/gpu/temperature")
+	resp, err := http.Get(mockServer.URL + "/smc/gpu/temperature")
 
 	if err != nil {
 		t.Fatal(err)
