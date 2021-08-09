@@ -1,6 +1,7 @@
 MAC utilies in Golang
 =====================
-![go build](https://github.com/abhi-g80/gomac/actions/workflows/go.yml/badge.svg)
+![build](https://github.com/abhi-g80/gomac/actions/workflows/build.yml/badge.svg)
+![test](https://github.com/abhi-g80/gomac/actions/workflows/test.yml/badge.svg)
 
 Exposes metrics collected from [powermetrics](https://www.unix.com/man-page/osx/1/powermetrics/) as endpoints.
 
