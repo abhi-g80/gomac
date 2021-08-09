@@ -2,6 +2,7 @@ MAC power utilies in Golang
 ===========================
 ![build](https://github.com/abhi-g80/gomac/actions/workflows/build.yml/badge.svg)
 ![test](https://github.com/abhi-g80/gomac/actions/workflows/test.yml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/abhi-g80/gomac)](https://goreportcard.com/report/github.com/abhi-g80/gomac)
 
 Exposes metrics collected from [powermetrics](https://www.unix.com/man-page/osx/1/powermetrics/) as endpoints.
 
