@@ -23,8 +23,13 @@ func newRouter() *mux.Router {
 
 	// Attach handlers
 	r.HandleFunc("/", defaultHandler).Methods("GET")
-	r.HandleFunc("/cpu/temperature", CPUTemperatureHandler).Methods("GET")
-	r.HandleFunc("/gpu/temperature", GPUTemperatureHandler).Methods("GET")
+	r.HandleFunc("/smc/cpu/temperature", CPUTemperatureHandler).Methods("GET")
+	r.HandleFunc("/smc/gpu/temperature", GPUTemperatureHandler).Methods("GET")
+
+	// Attach cpu temp display graph
+	staticFileDirectory := http.Dir("./graphs/")
+	staticFileHandler := http.StripPrefix("/graphs/", http.FileServer(staticFileDirectory))
+	r.PathPrefix("/graphs/").Handler(staticFileHandler).Methods("GET")
 
 	return r
 }

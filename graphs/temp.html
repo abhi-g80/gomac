@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+	<title>Temperature</title>
+  </head>
+  <body>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    var labels = [];
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'CPU temperature',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [],
+        dtype: "cpu",
+      }, 
+      {
+        label: 'GPU temperature',
+        backgroundColor: 'rgb(2, 99, 132)',
+        borderColor: 'rgb(2, 99, 132)',
+        data: [],
+        dtype: "gpu",
+      }]
+    };
+    const config = {
+      type: 'line',
+      data,
+      options: {}
+    };
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+	async function getTemp(type) {
+      var url = `http://localhost:8080/smc/${type}/temperature`;
+	  var response = await fetch(url);
+	  var json_data = await response.json();
+      return json_data;
+	}
+    function addData(chart, label, data, type) {
+      chart.data.labels.push(label);
+      chart.data.datasets.forEach((dataset) => {
+        if (dataset.dtype === type) {
+          dataset.data.push(data);
+        }
+      });
+      chart.update();
+    }
+    function getCurrentTime() {
+      let currentDate = new Date();
+      let time = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+      return time;
+    }
+    function removeData(chart) {
+      chart.data.labels.shift();
+      chart.data.datasets.forEach((dataset) => {
+          dataset.data.shift();
+      });
+      chart.update();
+    }
+    async function doStuff(chart) {
+  	  var label = getCurrentTime();	
+  	  var cpudata = await getTemp("cpu");
+      var gpudata = await getTemp("gpu");
+  	  addData(chart, label, cpudata, "cpu");
+  	  addData(chart, label, gpudata, "gpu");
+  	  if (chart.data.datasets[0].data.length > 100) {
+  	  	removeData(chart)
+  	  }
+    }
+	setInterval(doStuff, 2000, myChart);
+</script>
+  </body>
+</html>

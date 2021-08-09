@@ -1,5 +1,5 @@
-MAC utilies in Golang
-=====================
+MAC power utilies in Golang
+===========================
 ![build](https://github.com/abhi-g80/gomac/actions/workflows/build.yml/badge.svg)
 ![test](https://github.com/abhi-g80/gomac/actions/workflows/test.yml/badge.svg)
 
@@ -11,6 +11,7 @@ For testing,
 
 Get CPU and GPU temperature,
 
-    curl localhost:8080/cpu/temperature
-    curl localhost:8080/gpu/temperature 
+    curl localhost:8080/smc/cpu/temperature
+    curl localhost:8080/smc/gpu/temperature 
 
+CPU temperature can be seen at, [http://localhost:8080/graphs/temp.html](http://localhost:8080/graphs/temp.html).
